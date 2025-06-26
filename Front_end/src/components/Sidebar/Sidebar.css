@@ -1,0 +1,23 @@
+/* Sidebar */
+.sidebar {
+  width: 300px;
+  border-right: 1px solid;
+  padding: 16px;
+}
+
+.sidebar ul {
+  list-style: none;
+  font-size: 22px;
+}
+
+.sidebar ul li:first-child {
+  color: var(--primary-color);
+}
+
+.sidebar ul li:hover {
+  color: var(--primary-color);
+}
+
+.sidebar ul li:not(:last-child) {
+  margin-bottom: 16px;
+}
