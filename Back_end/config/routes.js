@@ -14,6 +14,7 @@ module.exports.routes = {
 
   // PRODUCTS
   "GET /api/products": { action: "products/get-products" },
+  "GET /api/products/:id": { action: "products/detail-product" },
   "POST /api/products/add": { action: "products/add-product" },
   "PATCH /api/product/edit/:id": { action: "products/edit-product" },
   "DELETE /api/product/delete/:id": { action: "products/delete-product" },
