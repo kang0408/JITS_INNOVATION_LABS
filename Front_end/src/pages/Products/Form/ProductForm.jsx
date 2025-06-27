@@ -1,6 +1,4 @@
-import { useState } from "react";
-
-import "./ProductForm.css";
+import './ProductForm.css';
 
 export default function ProductForm({
   formData,
@@ -23,11 +21,11 @@ export default function ProductForm({
       <h2>Create Product</h2>
       <form onSubmit={submitForm}>
         <div>
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="title">Title:</label>
           <input
             type="text"
-            name="name"
-            value={formData.name}
+            name="title"
+            value={formData.title}
             onChange={onHandleChange}
           />
         </div>
@@ -37,6 +35,24 @@ export default function ProductForm({
             type="input"
             name="price"
             value={formData.price}
+            onChange={onHandleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="discountPercentage">Discount:</label>
+          <input
+            type="input"
+            name="discountPercentage"
+            value={formData.discountPercentage}
+            onChange={onHandleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="stock">Stock:</label>
+          <input
+            type="input"
+            name="stock"
+            value={formData.stock}
             onChange={onHandleChange}
           />
         </div>

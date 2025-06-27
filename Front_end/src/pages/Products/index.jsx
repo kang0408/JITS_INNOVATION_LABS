@@ -1,63 +1,66 @@
-import { useState } from "react";
+import { useState, useEffect } from 'react';
 
-import ProductForm from "./Form/ProductForm";
-import ProductList from "./List/ProductList";
+import api from '../../configs/axios';
+
+import ProductForm from './Form/ProductForm';
+import ProductList from './List/ProductList';
 
 export default function Product() {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
+    title: '',
+    thumbnail: 'logo.png',
     price: 0,
-    status: "active",
-    img: "logo.png",
+    stock: 0,
+    discountPercentage: 0,
+    status: 'active',
   });
+  const [productList, setProductList] = useState();
 
-  const [productList, setProductList] = useState([
-    {
-      id: 1,
-      img: "logo.png",
-      name: "Product 1",
-      price: 20.0,
-      status: "active",
-    },
-    {
-      id: 2,
-      img: "logo.png",
-      name: "Product 2",
-      price: 15.5,
-      status: "inactive",
-    },
-    {
-      id: 3,
-      img: "logo.png",
-      name: "Product 3",
-      price: 9.99,
-      status: "active",
-    },
-  ]);
+  const fetchProducts = async () => {
+    setLoading(false);
+    const { data } = await api.get('/api/products');
 
-  const handleAddProduct = (item) => {
-    setProductList([...productList, { id: productList.length + 1, ...item }]);
-  };
-
-  const handleEditProduct = (item) => {
-    const existedIndex = productList.findIndex(
-      (product) => product.id == item.id
-    );
-    if (existedIndex !== -1) {
-      const updatedList = [...productList];
-      updatedList[existedIndex] = { ...updatedList[existedIndex], ...item };
-      setProductList(updatedList);
+    if (data.status === 200) {
+      setLoading(true);
+      setProductList(data.data);
     }
   };
 
-  const handleDeleteProduct = (item) => {
-    const list = productList.filter((product) => product.id !== item.id);
-    setProductList(list);
+  const handleAddProduct = async (item) => {
+    const { data } = await api.post('/api/products/add', item);
+    if (data.status === 200) {
+      fetchProducts();
+    }
+  };
+
+  const handleEditProduct = async (item) => {
+    const existedIndex = productList.findIndex(
+      (product) => product.id == item.id
+    );
+
+    if (existedIndex !== -1) {
+      const { data } = await api.patch(`/api/product/edit/${item.id}`, item);
+
+      if (data.status === 200) {
+        fetchProducts();
+      }
+    }
+  };
+
+  const handleDeleteProduct = async (item) => {
+    const { data } = await api.delete(`api/product/delete/${item.id}`);
+
+    if (data.status === 200) fetchProducts();
   };
 
   const handleGetProduct = (item) => {
     setFormData(item);
   };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
   return (
     <>
       <ProductForm
@@ -70,6 +73,7 @@ export default function Product() {
         productList={productList}
         handleDeleteProduct={handleDeleteProduct}
         handleGetProduct={handleGetProduct}
+        onLoading={loading}
       />
     </>
   );
