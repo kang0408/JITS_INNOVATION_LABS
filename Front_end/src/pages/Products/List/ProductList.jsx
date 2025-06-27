@@ -1,14 +1,48 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import api from '../../../configs/axios.js';
+
 import './ProductList.css';
 
-export default function ProductList({
-  productList,
-  handleDeleteProduct,
-  handleGetProduct,
-  onLoading,
-}) {
+export default function ProductList() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [productList, setProductList] = useState();
+
+  const fetchProducts = async () => {
+    setLoading(false);
+    const { data } = await api.get('/api/products');
+
+    if (data.status === 200) {
+      setLoading(true);
+      setProductList(data.data);
+    }
+  };
+
+  const handleDeleteProduct = async (item) => {
+    const { data } = await api.delete(`api/product/delete/${item.id}`);
+
+    if (data.status === 200) fetchProducts();
+  };
+
+  const navigateToEditPage = (item) => {
+    navigate(`/products/edit/${item.id}`);
+  };
+
+  const navigateToCreatePage = () => {
+    navigate('/products/create');
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   return (
     <>
-      {onLoading ? (
+      <h2>Product List</h2>
+      <button onClick={navigateToCreatePage}>Create</button>
+      {loading ? (
         <table>
           <thead>
             <tr>
@@ -41,7 +75,7 @@ export default function ProductList({
                     <div>
                       <button
                         className="edit-btn"
-                        onClick={() => handleGetProduct(product)}
+                        onClick={() => navigateToEditPage(product)}
                       >
                         Edit
                       </button>

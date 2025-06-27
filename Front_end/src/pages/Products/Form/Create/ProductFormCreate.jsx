@@ -1,11 +1,21 @@
-import './ProductForm.css';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function ProductForm({
-  formData,
-  setFormData,
-  handleAddProduct,
-  handleEditProduct,
-}) {
+import api from '../../../../configs/axios';
+
+import './ProductFormCreate.css';
+
+export default function ProductFormCreate() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    title: '',
+    thumbnail: 'logo.png',
+    price: 0,
+    stock: 0,
+    discountPercentage: 0,
+    status: 'active',
+  });
+
   const onHandleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -14,6 +24,13 @@ export default function ProductForm({
   const submitForm = (e) => {
     e.preventDefault();
     handleAddProduct(formData);
+  };
+
+  const handleAddProduct = async (item) => {
+    const { data } = await api.post('/api/products/add', item);
+    if (data.status === 200) {
+      navigate('/products');
+    }
   };
 
   return (
@@ -68,9 +85,6 @@ export default function ProductForm({
           </select>
         </div>
         <div className="action">
-          <button type="button" onClick={() => handleEditProduct(formData)}>
-            Edit
-          </button>
           <button type="submit">Submit</button>
         </div>
       </form>

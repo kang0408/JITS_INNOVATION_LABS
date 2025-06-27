@@ -9,8 +9,20 @@ header {
   background: var(--primary-color);
 }
 
+header > div:first-child {
+  display: flex;
+  align-items: center;
+}
+
 header .logo {
   width: 90px;
+}
+
+header .switch-theme-btn {
+  background: #fff;
+  color: #000;
+  width: fit-content;
+  height: fit-content;
 }
 
 header .user {

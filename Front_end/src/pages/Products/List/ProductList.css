@@ -2,6 +2,8 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 16px;
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
 table thead {
@@ -19,7 +21,11 @@ table th {
 }
 
 table tbody tr:nth-child(odd) {
-  background: #ccc;
+  background: var(--bg-table-row);
+}
+
+table tbody tr:not(:last-child) {
+  border-bottom: 1px solid var(--text-color);
 }
 
 table td.name {
@@ -34,10 +40,6 @@ table td.action > div {
   display: flex;
   gap: 8px;
   justify-content: center;
-}
-
-table td.action > div button {
-  border: 1px solid;
 }
 
 table td.action > div .edit-btn {
@@ -58,4 +60,8 @@ table td .status {
 
 table td .status-inactive {
   background: orange;
+}
+
+h2 {
+  margin-bottom: 16px;
 }
