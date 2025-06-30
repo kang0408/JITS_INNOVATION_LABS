@@ -1,8 +1,10 @@
-import Header from "../components/Header/Header";
-import Sidebar from "../components/Sidebar/Sidebar";
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 
-import "./default.css";
+import Header from '../components/Header/Header';
+import Sidebar from '../components/Sidebar/Sidebar';
+import Footer from '../components/Footer/Footer';
+
+import './default.css';
 
 export default function DefaultLayout() {
   return (
@@ -14,6 +16,7 @@ export default function DefaultLayout() {
           <Outlet />
         </div>
       </div>
+      <Footer />
     </>
   );
 }
