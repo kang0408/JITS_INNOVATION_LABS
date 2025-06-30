@@ -8,7 +8,7 @@ form label {
   font-size: 20px;
 }
 
-form label[for="status"] {
+form label[for='status'] {
   width: fit-content;
   margin-right: 8px;
 }

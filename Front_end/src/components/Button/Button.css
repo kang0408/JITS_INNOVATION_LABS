@@ -1,0 +1,35 @@
+button {
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.25s;
+  border: none;
+  box-shadow: 0px 2px 3px #ccc;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+button:disabled {
+  background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3));
+  color: light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3));
+  border-color: light-dark(rgba(118, 118, 118, 0.3), rgba(195, 195, 195));
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+button.btn-default {
+  background: #e7e7e7;
+  color: #000;
+}
+button.btn-primary {
+  background-color: rgb(50, 50, 113);
+  color: #fff;
+}
